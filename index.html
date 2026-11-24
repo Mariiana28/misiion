@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Misión Kevin 🕷️</title>
+
+
+    <style>
+        /* ==============================
+           CONFIGURACIÓN GENERAL
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #050505;
+
+            color: white;
+
+            min-height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* ==============================
+           FONDO
+        ============================== */
+
+        .fondo {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                linear-gradient(to bottom,
+                    #03040a 0%,
+                    #080b14 55%,
+                    #111 100%);
+
+            z-index: -2;
+        }
+
+
+        .luna {
+
+            position: absolute;
+
+            width: 90px;
+
+            height: 90px;
+
+            background: #eee;
+
+            border-radius: 50%;
+
+            top: 12%;
+
+            right: 15%;
+
+            opacity: .12;
+
+            box-shadow:
+                0 0 50px rgba(255, 255, 255, .15);
+        }
+
+
+        /* ==============================
+           EDIFICIOS
+        ============================== */
+
+        .edificio {
+
+            position: absolute;
+
+            bottom: 0;
+
+            background: #090909;
+
+            border-top: 1px solid #191919;
+        }
+
+
+        .edificio1 {
+
+            width: 15%;
+
+            height: 30%;
+
+            left: 0;
+        }
+
+
+        .edificio2 {
+
+            width: 18%;
+
+            height: 48%;
+
+            left: 14%;
+        }
+
+
+        .edificio3 {
+
+            width: 20%;
+
+            height: 35%;
+
+            left: 31%;
+        }
+
+
+        .edificio4 {
+
+            width: 17%;
+
+            height: 55%;
+
+            right: 18%;
+        }
+
+
+        .edificio5 {
+
+            width: 20%;
+
+            height: 40%;
+
+            right: 0;
+        }
+
+
+        /* ==============================
+           TELARAÑA
+        ============================== */
+
+        .telarana-fondo {
+
+            position: absolute;
+
+            top: -50px;
+
+            left: -50px;
+
+            font-size: 180px;
+
+            opacity: .04;
+
+            transform: rotate(20deg);
+        }
+
+
+        /* ==============================
+           PANTALLAS
+        ============================== */
+
+        .pantalla {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity .8s ease,
+                transform .8s ease;
+
+            transform: translateY(15px);
+        }
+
+
+        .pantalla.activa {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+        }
+
+
+        /* ==============================
+           CONTENIDO
+        ============================== */
+
+        .contenido {
+
+            width: 100%;
+
+            max-width: 600px;
+
+            text-align: center;
+
+            z-index: 2;
+        }
+
+
+        .pequeno {
+
+            color: #e32626;
+
+            font-size: .85rem;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 18px;
+        }
+
+
+        h1 {
+
+            font-size: 4rem;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 18px;
+        }
+
+
+        h1 span {
+
+            color: #e32626;
+        }
+
+
+        h2 {
+
+            font-size: 2.2rem;
+
+            margin-bottom: 25px;
+        }
+
+
+        p {
+
+            color: #d7d7d7;
+
+            font-size: 1.05rem;
+
+            line-height: 1.7;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* ==============================
+           ARAÑA
+        ============================== */
+
+        .araña {
+
+            font-size: 45px;
+
+            margin-bottom: 20px;
+
+            animation:
+                flotar 3s ease-in-out infinite;
+        }
+
+
+        @keyframes flotar {
+
+            0%,
+            100% {
+
+                transform: translateY(0);
+            }
+
+            50% {
+
+                transform: translateY(-8px);
+            }
+        }
+
+
+        /* ==============================
+           BOTONES
+        ============================== */
+
+        button {
+
+            margin-top: 25px;
+
+            padding: 13px 30px;
+
+            border: 1px solid #e32626;
+
+            border-radius: 30px;
+
+            background: rgba(227, 38, 38, .05);
+
+            color: white;
+
+            font-size: .95rem;
+
+            cursor: pointer;
+
+            transition:
+                background .3s ease,
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+
+        button:hover {
+
+            background: #e32626;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 25px rgba(227, 38, 38, .25);
+        }
+
+
+        /* ==============================
+           EXPEDIENTE
+        ============================== */
+
+        .archivo {
+
+            text-align: left;
+
+            padding: 25px;
+
+            border:
+                1px solid rgba(255, 255, 255, .1);
+
+            border-left:
+                3px solid #e32626;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255, 255, 255, .035);
+
+            backdrop-filter: blur(5px);
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, .3);
+        }
+
+
+        .archivo p {
+
+            margin-bottom: 10px;
+
+            font-size: .95rem;
+        }
+
+
+        .archivo strong {
+
+            color: white;
+        }
+
+
+        /* ==============================
+           TEXTAREA
+        ============================== */
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 130px;
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            resize: none;
+
+            border-radius: 12px;
+
+            border:
+                1px solid rgba(255, 255, 255, .15);
+
+            background:
+                rgba(255, 255, 255, .04);
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 1rem;
+
+            outline: none;
+
+            transition: .3s;
+        }
+
+
+        textarea:focus {
+
+            border-color: #e32626;
+
+            box-shadow:
+                0 0 20px rgba(227, 38, 38, .12);
+        }
+
+
+        textarea::placeholder {
+
+            color: #777;
+        }
+
+
+        /* ==============================
+           AVISO RESPUESTAS
+        ============================== */
+
+        .aviso {
+
+            font-size: .78rem;
+
+            color: #777;
+
+            margin-top: 12px;
+
+            margin-bottom: 0;
+        }
+
+
+        /* ==============================
+           CORAZÓN
+        ============================== */
+
+        .corazon-grande {
+
+            color: #e32626;
+
+            font-size: 45px;
+
+            animation:
+                latido 1.5s ease-in-out infinite;
+        }
+
+
+        @keyframes latido {
+
+            0%,
+            100% {
+
+                transform: scale(1);
+            }
+
+            50% {
+
+                transform: scale(1.15);
+            }
+        }
+
+
+        /* ==============================
+           MENSAJE FINAL
+        ============================== */
+
+        .mensaje-final {
+
+            margin-top: 25px;
+
+            color: #e32626;
+
+            font-size: 1.7rem;
+
+            font-weight: bold;
+        }
+
+
+        /* ==============================
+           MÓVIL
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            h1 {
+
+                font-size: 2.5rem;
+            }
+
+
+            h2 {
+
+                font-size: 1.7rem;
+            }
+
+
+            .archivo {
+
+                padding: 18px;
+            }
+
+
+            .archivo p {
+
+                font-size: .88rem;
+            }
+
+
+            .luna {
+
+                width: 60px;
+
+                height: 60px;
+            }
+
+
+            .contenido {
+
+                max-width: 95%;
+            }
+
+
+            textarea {
+
+                min-height: 120px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         FONDO
+    ============================== -->
+
+    <div class="fondo">
+
+        <div class="luna"></div>
+
+        <div class="edificio edificio1"></div>
+
+        <div class="edificio edificio2"></div>
+
+        <div class="edificio edificio3"></div>
+
+        <div class="edificio edificio4"></div>
+
+        <div class="edificio edificio5"></div>
+
+        <div class="telarana-fondo">
+            🕸️
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         PANTALLA 1
+    ============================== -->
+
+    <section class="pantalla activa" id="pantalla1">
+
+        <div class="contenido">
+
+            <div class="araña">
+                🕷️
+            </div>
+
+            <p class="pequeno">
+                ARCHIVO CONFIDENCIAL
+            </p>
+
+            <h1>
+                HOLA, <span>KEVIN</span>
+            </h1>
+
+            <p>
+                Tengo algo pequeño para ti.
+            </p>
+
+            <button onclick="mostrarPantalla(2)">
+                abrir →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         PANTALLA 2
+         EXPEDIENTE
+    ============================== -->
+
+    <section class="pantalla" id="pantalla2">
+
+        <div class="contenido">
+
+            <p class="pequeno">
+                EXPEDIENTE · SPIDER-01
+            </p>
+
+            <h2>
+                Sujeto identificado 🕷️
+            </h2>
+
+
+            <div class="archivo">
+
+                <p>
+                    <strong>Nombre:</strong>
+                    Kevin
+                </p>
+
+                <p>
+                    <strong>Nivel de peligro:</strong>
+                    100/10 para mi corazón
+
+                </p>
+                <p>
+                    <strong>Habilidades:</strong>
+                    me hace sentir mariposas en el estómago
+
+                </p>
+                <p>
+                    <strong>Habilidad especial detectada:</strong>
+                    Hacerme pasar demasiado tiempo pensando en él
+                </p>
+                <p>
+                    <strong>Información restante:</strong>
+                    Clasificada.
+                </p>
+                <p>
+                    <strong>Observación:</strong>
+                    nos conocimos durante el verano...
+                    y terminaste gustándome más de lo previsto.
+                </p>
+
+            </div>
+
+
+            <button onclick="iniciarMision()">
+                hay algo más →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         PANTALLA 3
+         MISIÓN SECUNDARIA
+    ============================== -->
+
+    <section class="pantalla" id="pantalla3">
+
+        <div class="contenido">
+
+            <p class="pequeno" id="numeroPregunta">
+                MISIÓN SECUNDARIA · 01 / 07
+            </p>
+
+
+            <h2 id="tituloMision">
+                Conocer al sujeto 🕷️
+            </h2>
+
+
+            <p id="pregunta">
+
+                Hay algo de ti que la gente tarda
+                mucho en descubrir...
+                ¿Qué es?
+
+            </p>
+
+
+            <textarea id="respuesta" placeholder="escribe tu respuesta aquí..."></textarea>
+
+
+            <p class="aviso">
+                Tus respuestas serán guardadas para mí 🕷️
+            </p>
+
+
+            <button onclick="siguientePregunta()">
+                guardar respuesta →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         PANTALLA 4
+         RESULTADO
+    ============================== -->
+
+    <section class="pantalla" id="pantalla4">
+
+        <div class="contenido">
+
+            <p class="pequeno">
+                INVESTIGACIÓN COMPLETADA ✓
+            </p>
+
+
+            <h2>
+                Archivo desbloqueado.
+            </h2>
+
+
+            <p>
+                Se ha recopilado suficiente información.
+            </p>
+
+
+            <p>
+                Kevin parece ser bastante más interesante
+                de lo que indicaba el expediente inicial.
+            </p>
+
+
+            <p class="mensaje-final">
+                Nivel de curiosidad: ↑↑↑
+            </p>
+
+
+            <button onclick="mostrarPantalla(5)">
+                volver a la misión principal →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         PANTALLA 5
+         MENSAJE
+    ============================== -->
+
+    <section class="pantalla" id="pantalla5">
+
+        <div class="contenido">
+
+            <div class="corazon-grande">
+                ♥
+            </div>
+
+
+            <h2>
+                Bueno, Kevin...
+            </h2>
+
+
+            <p>
+                Quería hacerte un pequeño detalle.
+            </p>
+
+
+            <p>
+                Se que ultimamente no he estado muy presente, pero quiero decirte que siempre estoy pensando en ti
+                y no hay día en el que no me acuerde de ti.
+                Eres una persona muy especial para mí y quiero que sepas que me importas mucho.
+                Me gusta mucho lo que estamos construyendo y me gusta tenerte en mi vida.
+            </p>
+
+
+            <p>
+                Así que hice esto simplemente para
+                recordarte que...
+            </p>
+
+
+            <p class="mensaje-final">
+                Me gustas mucho y te quiero muchooooooooooooooooooo. ❤️
+            </p>
+
+
+            <button onclick="mostrarPantalla(6)">
+                una última cosa →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         PANTALLA 6
+         FINAL
+    ============================== -->
+
+    <section class="pantalla" id="pantalla6">
+
+        <div class="contenido">
+
+            <p class="pequeno">
+                MISIÓN CUMPLIDA
+            </p>
+
+
+            <h2>
+                Hasta el próximo capítulo... 🕷️
+            </h2>
+
+
+            <p>
+                Y considerando que los dos estamos salados...
+            </p>
+
+
+            <p>
+                al menos nos tocó estarlo juntos. ❤️
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    ============================== -->
+
+    <script>
+
+
+        /* =================================
+           PREGUNTAS
+        ================================= */
+
+        const preguntas = [
+
+            "Hay algo de ti que la gente tarda mucho en descubrir... ¿Qué es?",
+
+            "Si pudieras regresar a un momento de tu vida solo para volver a sentirlo, ¿cuál sería?",
+
+            "¿Qué cosa te hace sentir realmente tú?",
+
+            "Si mañana pudieras despertar viviendo una vida completamente diferente, ¿cómo sería esa vida?",
+
+            "¿Qué es algo que nunca quieres perder de ti, aunque pase el tiempo?",
+
+            "¿Qué es algo que te hace sentir querido sin necesidad de que te lo digan?",
+
+            "Y ahora una sobre nosotros... Si nuestra historia fuera una película, ¿qué género sería?"
+
+        ];
+
+
+        /* =================================
+           VARIABLES
+        ================================= */
+
+        let preguntaActual = 0;
+
+        let respuestas = [];
+
+
+
+        /* =================================
+           CAMBIAR DE PANTALLA
+        ================================= */
+
+        function mostrarPantalla(numero) {
+
+
+            document
+                .querySelectorAll(".pantalla")
+                .forEach(function (pantalla) {
+
+                    pantalla.classList.remove("activa");
+
+                });
+
+
+            document
+                .getElementById("pantalla" + numero)
+                .classList.add("activa");
+
+        }
+
+
+
+        /* =================================
+           INICIAR MISIÓN
+        ================================= */
+
+        function iniciarMision() {
+
+
+            preguntaActual = 0;
+
+            respuestas = [];
+
+
+            mostrarPantalla(3);
+
+            mostrarPregunta();
+
+        }
+
+
+
+        /* =================================
+           MOSTRAR PREGUNTA
+        ================================= */
+
+        function mostrarPregunta() {
+
+
+            document
+                .getElementById("numeroPregunta")
+                .textContent =
+                "MISIÓN SECUNDARIA · " +
+                String(preguntaActual + 1).padStart(2, "0") +
+                " / 07";
+
+
+            document
+                .getElementById("pregunta")
+                .textContent =
+                preguntas[preguntaActual];
+
+
+            document
+                .getElementById("respuesta")
+                .value = "";
+
+
+            document
+                .getElementById("respuesta")
+                .focus();
+
+        }
+
+
+
+        /* =================================
+           GUARDAR RESPUESTA
+        ================================= */
+
+        function siguientePregunta() {
+
+
+            const respuesta =
+                document
+                    .getElementById("respuesta")
+                    .value
+                    .trim();
+
+
+            if (respuesta === "") {
+
+                alert(
+                    "Primero necesito una respuesta, agente 🕷️"
+                );
+
+                return;
+
+            }
+
+
+            respuestas.push(respuesta);
+
+
+            preguntaActual++;
+
+
+            if (
+                preguntaActual <
+                preguntas.length
+            ) {
+
+                mostrarPregunta();
+
+            }
+
+            else {
+
+                enviarRespuestas();
+
+            }
+
+        }
+
+
+
+        /* =================================
+           ENVIAR A GOOGLE SHEETS
+        ================================= */
+
+        async function enviarRespuestas() {
+
+
+            /*
+             * PEGA AQUÍ LA URL DE TU
+             * GOOGLE APPS SCRIPT
+             */
+
+            const URL =
+                "https://script.google.com/macros/s/AKfycbyU8pdyF_wNYqhjmdPUET9ihpC7ss42MydSsD_7lYz0y6PNwsMAEOwQsZbgES_X4tNkfw/exec";
+
+
+            const datos = {
+
+
+                pregunta1:
+                    respuestas[0],
+
+
+                pregunta2:
+                    respuestas[1],
+
+
+                pregunta3:
+                    respuestas[2],
+
+
+                pregunta4:
+                    respuestas[3],
+
+
+                pregunta5:
+                    respuestas[4],
+
+
+                pregunta6:
+                    respuestas[5],
+
+
+                pregunta7:
+                    respuestas[6]
+
+            };
+
+
+            try {
+
+
+                await fetch(
+
+                    URL,
+
+                    {
+
+                        method: "POST",
+
+                        mode: "no-cors",
+
+                        headers: {
+
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+
+                        },
+
+                        body:
+                            JSON.stringify(datos)
+
+                    }
+
+                );
+
+
+                mostrarPantalla(4);
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Error al enviar respuestas:",
+                    error
+                );
+
+
+                /*
+                 * Aunque el navegador no permita
+                 * leer la respuesta por CORS,
+                 * el Apps Script puede haber
+                 * recibido correctamente los datos.
+                 */
+
+                mostrarPantalla(4);
+
+            }
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
